@@ -1,0 +1,229 @@
+package com.video.pojo.vo;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@ApiModel(value = "用户注册对象",description = "这是用户注册对象")
+@Table(name = "video_users")
+public class UsersVo {
+    @ApiModelProperty(hidden = true)
+    @Id
+    private String id;
+
+    /**
+     * 是否关注
+     */
+    private boolean isFollow;
+
+    public boolean isFollow() {
+        return isFollow;
+    }
+
+    public void setFollow(boolean follow) {
+        isFollow = follow;
+    }
+
+    /**
+     * 用户名
+     */
+    @ApiModelProperty(value = "用户名",name = "username",example = "zhhangshan",required = true)
+    private String username;
+
+    /**
+     * token
+     */
+    private String token;
+
+    /**
+     * 我的头像，如果没有默认给一张
+     */
+    @ApiModelProperty(hidden = true)
+    @Column(name = "face_image")
+    private String faceImage;
+
+    /**
+     * 昵称
+     */
+    @ApiModelProperty(hidden = true)
+    private String nickname;
+
+    /**
+     * 我的粉丝数量
+     */
+    @ApiModelProperty(hidden = true)
+    @Column(name = "fans_counts")
+    private Integer fansCounts;
+
+    /**
+     * 我关注的人总数
+     */
+    @ApiModelProperty(hidden = true)
+    @Column(name = "follow_counts")
+    private Integer followCounts;
+
+    /**
+     * 我接受到的赞美/收藏 的数量
+     */
+    @ApiModelProperty(hidden = true)
+    @Column(name = "receive_like_counts")
+    private Integer receiveLikeCounts;
+
+    public UsersVo(String id, String username, String token, String faceImage, String nickname, Integer fansCounts, Integer followCounts, Integer receiveLikeCounts) {
+        this.id = id;
+        this.username = username;
+        this.token = token;
+        this.faceImage = faceImage;
+        this.nickname = nickname;
+        this.fansCounts = fansCounts;
+        this.followCounts = followCounts;
+        this.receiveLikeCounts = receiveLikeCounts;
+    }
+
+    public UsersVo() {
+        super();
+    }
+
+    /**
+     * @return id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     */
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
+
+    /**
+     * 获取用户名
+     *
+     * @return username - 用户名
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * 设置用户名
+     *
+     * @param username 用户名
+     */
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    /**
+     * 获取token
+     *
+     * @return token - token
+     */
+    public String gettoken() {
+        return token;
+    }
+
+    /**
+     * 设置token
+     *
+     * @param token token
+     */
+    public void settoken(String token) {
+        this.token = token == null ? null : token.trim();
+    }
+
+    /**
+     * 获取我的头像，如果没有默认给一张
+     *
+     * @return face_image - 我的头像，如果没有默认给一张
+     */
+    public String getFaceImage() {
+        return faceImage;
+    }
+
+    /**
+     * 设置我的头像，如果没有默认给一张
+     *
+     * @param faceImage 我的头像，如果没有默认给一张
+     */
+    public void setFaceImage(String faceImage) {
+        this.faceImage = faceImage == null ? null : faceImage.trim();
+    }
+
+    /**
+     * 获取昵称
+     *
+     * @return nickname - 昵称
+     */
+    public String getNickname() {
+        return nickname;
+    }
+
+    /**
+     * 设置昵称
+     *
+     * @param nickname 昵称
+     */
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    /**
+     * 获取我的粉丝数量
+     *
+     * @return fans_counts - 我的粉丝数量
+     */
+    public Integer getFansCounts() {
+        return fansCounts;
+    }
+
+    /**
+     * 设置我的粉丝数量
+     *
+     * @param fansCounts 我的粉丝数量
+     */
+    public void setFansCounts(Integer fansCounts) {
+        this.fansCounts = fansCounts;
+    }
+
+    /**
+     * 获取我关注的人总数
+     *
+     * @return follow_counts - 我关注的人总数
+     */
+    public Integer getFollowCounts() {
+        return followCounts;
+    }
+
+    /**
+     * 设置我关注的人总数
+     *
+     * @param followCounts 我关注的人总数
+     */
+    public void setFollowCounts(Integer followCounts) {
+        this.followCounts = followCounts;
+    }
+
+    /**
+     * 获取我接受到的赞美/收藏 的数量
+     *
+     * @return receive_like_counts - 我接受到的赞美/收藏 的数量
+     */
+    public Integer getReceiveLikeCounts() {
+        return receiveLikeCounts;
+    }
+
+    /**
+     * 设置我接受到的赞美/收藏 的数量
+     *
+     * @param receiveLikeCounts 我接受到的赞美/收藏 的数量
+     */
+    public void setReceiveLikeCounts(Integer receiveLikeCounts) {
+        this.receiveLikeCounts = receiveLikeCounts;
+    }
+}

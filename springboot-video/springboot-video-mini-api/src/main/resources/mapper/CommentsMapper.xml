@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.video.dao.CommentsDao">
+  <resultMap id="BaseResultMap" type="com.video.pojo.vo.CommentsVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id property="id" column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+    <result property="fatherCommentId" column="father_comment_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+    <result property="toUserId" column="to_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+    <result property="videoId" column="video_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+    <result property="fromUserId" column="from_user_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+    <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    <result property="comment" column="comment" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+
+    <result property="faceImage" column="face_image" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    <result property="nickname" column="nickname" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    <result property="toNickname" column="to_nickname" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, father_comment_id, to_user_id, video_id, from_user_id, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    comment
+  </sql>
+
+  <select id="findCommentsAll" parameterType="string" resultMap="BaseResultMap">
+    SELECT c.*,u.face_image,u.nickname,tu.nickname as to_nickname
+    FROM video_comments c
+    LEFT JOIN video_users u ON c.from_user_id=u.id
+    LEFT JOIN video_users tu ON c.to_user_id=tu.id
+    WHERE c.video_id=#{videoId}
+    order by c.create_time desc
+  </select>
+</mapper>

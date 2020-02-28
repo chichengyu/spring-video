@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.video.dao.VideosDao" >
+  <resultMap id="BaseResultMap" type="com.video.pojo.Videos" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <constructor >
+      <idArg column="id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="audio_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="video_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="video_path" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="video_seconds" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="video_width" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="video_height" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="cover_path" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="like_counts" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, user_id, audio_id, video_desc, video_path, video_seconds, video_width, video_height, 
+    cover_path, like_counts, status, create_time
+  </sql>
+</mapper>

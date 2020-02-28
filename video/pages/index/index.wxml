@@ -1,0 +1,17 @@
+<view wx:if="{{videoList.length > 0}}">
+  <view wx:for="{{videoList}}" wx:key="videoList" class="item-container">
+      <view style='width:{{screenWidth}}px;height:210px;' class='back-img'> 
+          <image src="{{serverUrl}}{{item.coverPath}}" style='width:{{screenWidth}}px;height:210px;' mode="aspectFit" catchtap='showVideoInfo' data-arrindex='{{index}}'></image>
+      </view>
+
+      <view class="desc">
+          <view class="faceName">
+              <image class='myface' src="{{serverUrl}}{{item.faceImage}}"></image>
+              <view class="nickname">{{item.nickname}}</view>
+          </view>
+      </view> 
+  </view>
+</view>
+<view wx:else>
+    <view style="position:absolute;margin:auto;left:0;top:35%;right:0;bottom:0;text-align: center;">当前没有视频！</view>
+</view>

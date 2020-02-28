@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.video.dao.VideosDao">
+  <resultMap id="BaseResultMap" type="com.video.pojo.vo.VideosVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+      <id column="id" property="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result column="user_id" property="userId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result column="audio_id" property="audioId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result column="video_desc" property="videoDesc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result column="video_path" property="videoPath" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result column="video_seconds" property="videoSeconds" javaType="java.lang.Float" jdbcType="REAL" />
+      <result column="video_width" property="videoWidth" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <result column="video_height" property="videoHeight" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <result column="cover_path" property="coverPath" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result column="like_counts" property="likeCounts" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <result column="status" property="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <result column="create_time" property="createTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+
+      <result column="face_image" property="faceImage" javaType="java.lang.String" jdbcType="VARCHAR"/>
+      <result column="nickname" property="nickname" javaType="java.lang.String" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    v.id, v.user_id, audio_id, video_desc, video_path, video_seconds, video_width, video_height,
+    cover_path, like_counts, `status`, create_time,face_image,nickname
+  </sql>
+
+  <select id="findVideoAndUsersAll" resultMap="BaseResultMap" parameterType="string">
+    select <include refid="Base_Column_List"/>
+    from video_videos v
+    left join video_users u
+    on v.user_id = u.id
+    where v.status=1
+        <if test="videoDesc != null and videoDesc != ''">
+          and v.video_desc like '%${videoDesc}%'
+        </if>
+        <if test="userId != null and userId != ''">
+          and v.user_id=#{userId}
+        </if>
+    order by v.create_time desc
+  </select>
+
+  <select id="findVideoAndMyLikeAll" resultMap="BaseResultMap" parameterType="string">
+    SELECT <include refid="Base_Column_List"/>
+    FROM video_videos as v
+    LEFT JOIN video_users_like_videos as ulv ON ulv.video_id=v.id
+    LEFT JOIN video_users as u ON ulv.user_id=u.id
+    WHERE v.status=1 AND u.id=#{userId}
+    order by v.create_time desc
+  </select>
+
+  <select id="findVideoAndMyFollowAll" resultMap="BaseResultMap" parameterType="string">
+    SELECT <include refid="Base_Column_List"/>
+    FROM video_videos as v
+    inner JOIN video_users_fans as uf ON uf.fan_id=#{userId} AND v.user_id=uf.user_id
+    inner JOIN video_users as u ON u.id=uf.user_id
+    WHERE v.status=1
+    order by v.create_time desc
+  </select>
+
+  <update id="addVideoLikeCounts" parameterType="string">
+    update video_videos
+    set like_counts=like_counts+1
+    where id=#{videoId}
+  </update>
+
+  <update id="reduceVideoLikeCounts" parameterType="string">
+    update video_videos
+    set like_counts=like_counts-1
+    where id=#{videoId}
+  </update>
+</mapper>
